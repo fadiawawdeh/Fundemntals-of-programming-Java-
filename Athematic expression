@@ -1,0 +1,169 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package project.pkg2.pkgfinal;
+
+import java.util.Random;
+import java.util.Scanner;
+
+/**
+ *
+ * @author Fadi Awawdeh
+ */
+public class Project2Final {
+
+       /**
+     * @param args 
+     */
+    public static void main (String[] args) {
+        	System.out.println("Welcome to Arithemtics Exercise Program!");
+
+	System.out.println("----------------------------------------");
+
+	System.out.println("* You have 90 Seconds to answer as many questions as possible. *");
+
+	System.out.println("* You will get 5 seconds bonus if you answer 5 questions correctly in a row! *");
+
+
+// Set the initial time
+        long startTime = System.currentTimeMillis();
+        int totalTime = 90;
+        int level = 1; // Starting level is always 1
+        int numCorrect = 0;
+        int numInRow = 0; // Number of questions answered correctly in a row
+
+       Scanner scanner = new Scanner (System.in);
+
+        while (elapsedTime(startTime) < totalTime * 1000L) {
+            String expression;// ask him to play again.
+            int correctAnswer;
+
+            // Generate a random arithmetic expression for the chosen level
+            if(level == 1) {
+                expression = generateExpressionLevel1();
+                correctAnswer = calculateAnswer(expression);
+            } else {
+                expression = generateExpressionLevel2();
+                correctAnswer = calculateAnswer(expression);
+            }
+
+            System.out.print(expression);
+            int userAnswer = scanner.nextInt();
+
+            if (checkAnswer(userAnswer, correctAnswer)) {
+                numCorrect++;
+                numInRow++;
+
+                // If the user has answered 10 questions correctly in a row, move to level 2
+                if (numInRow == 10) {
+                    level = 2;
+                    numInRow = 0;
+                    System.out.println("Congratulations! You have moved to level 2!");
+                }
+
+                // If the user has answered 3 questions correctly in a row, display a star pattern
+                if (numInRow % 3 == 0) {
+                    int rows = 8;
+                    for (int i= 0; i<= rows-1; i++) {
+                        for (int j=0; j<=i; j++) {
+                            System.out.print(" ");
+                        }
+                        for (int k=0; k<=rows-1-i; k++) {
+                            System.out.print("*" + " ");
+                        }
+                        System.out.println();
+                    }
+                }
+            } else {
+                // Reset the number of questions answered in a row
+                numInRow = 0;
+            }
+        }
+
+        displayScore(numCorrect, elapsedTime(startTime));// correct answers over the time elapsed
+
+        // Ask the user if they want to play again
+        System.out.print("Do you want to play again? (Y/N)");
+        String userInput = scanner.nextLine();
+        if (userInput.equalsIgnoreCase("Y")) {
+            main(new String[]{});
+        } else if (userInput.equalsIgnoreCase("N")) {
+            System.out.print("Thanks for playing!");
+        } else {
+            System.out.println("Invalid input. Please try again.");
+            main(new String[]{});// restart(calling the main method
+        }
+    }
+    public static void displayScore(int numCorrect, long elapsedTime) {
+        double elapsedTimeInMinutes = elapsedTime / 60000.0;
+        double score = numCorrect / elapsedTimeInMinutes;
+
+        System.out.println("Total time: " + elapsedTimeInMinutes + " minutes");
+        System.out.println("Number of correct answers: " + numCorrect);
+        System.out.println("Score: " + score + " points per minute");
+
+        displayMotivationalMessage(score);
+    }
+
+    public static void displayMotivationalMessage(double score) {
+        if (score > 20) {
+            System.out.println("Great job! Keep up the good work.");
+        } else if (score > 10) {
+            System.out.println("Good job! You're doing well.");
+        } else {
+            System.out.println("Keep trying! You can do it.");
+        }
+    }
+
+    public static long elapsedTime(long startTime) {
+        return System.currentTimeMillis() - startTime;
+    }
+    public static String generateExpressionLevel1() {
+        Random random = new Random();
+        int num1 = random.nextInt(10);
+        int num2 = random.nextInt(10);
+        char operator = random.nextInt(2) == 0 ? '+' : '-';
+        return num1 + " " + operator + " " + num2 + " = ";
+    }
+
+    public static String generateExpressionLevel2() {
+        Random random = new Random();
+        int num1 = random.nextInt(10);
+        int num2 = random.nextInt(10);
+        char operator = random.nextInt(4) == 0 ? '/' : (random.nextInt(3) == 0 ? '*' : (random.nextInt(2) == 0 ? '+' : '-'));
+        return num1 + " " + operator + " " + num2 + " = ";
+    }
+
+    public static int calculateAnswer(String expression) {
+        Scanner scanner = new Scanner(expression);
+        int num1 = scanner.nextInt();
+        char operator = scanner.next().charAt(0);
+        int num2 = scanner.nextInt();
+
+        switch (operator) {
+            case '+':
+                return num1 + num2;
+            case '-':
+                return num1 - num2;
+            case '*':
+                return num1 * num2;
+            case '/':
+                return num1 / num2;
+            default:
+                return 0;
+        }
+    }
+
+    public static boolean checkAnswer(int userAnswer, int correctAnswer) {
+        return userAnswer == correctAnswer;
+    }
+}
+
+
+
+
+
+ 
+
