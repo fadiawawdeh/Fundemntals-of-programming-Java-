@@ -1,0 +1,21 @@
+package maximum;
+
+public class Maximum {
+
+    public static void main(String[] args) {
+        int num1 = 10;
+        int num2 = 20;
+        int result = max(num1, num2);
+        System.out.println("The maximum of " + num1 + " and " + num2 + " is: " + result);
+    }
+
+    public static int max(int num1, int num2) {
+        int max;
+        if (num2 < num1) {
+            max = num1;
+        } else {
+            max = num2;
+        }
+        return max;
+    }
+}
