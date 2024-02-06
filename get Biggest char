@@ -1,0 +1,35 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package quiz4;
+
+/**
+ *
+ * @author Fadi Awawdeh
+ */
+public class char {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        getBiggestChar ('d','h');
+        
+        System.out.println(getBiggestChar ('d','h'));
+        
+    }
+    
+    
+    public static char getBiggestChar (char x, char y) {
+        
+        if (x>y) {
+            return x;
+        }
+        else  {
+            return y;
+        }
+    }
+    
+}
