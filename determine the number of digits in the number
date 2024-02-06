@@ -1,0 +1,37 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package max;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Fadi Awawdeh
+ */
+public class NewClass {
+    public static void main(String[] args) {
+        Scanner input = new Scanner (System.in);
+        System.out.println("Enter a number");
+        int number = input.nextInt();
+        int digit1 = number%10;
+        int digit2 = (number/10)%10;
+        int digit3 = (number/100) %10;
+        
+        if (number> 0 && number<10 ) {
+            System.out.println("The number you entered has one digit: " + digit1);
+        } 
+        else if (number > 9 && number < 100) {
+            System.out.println("The number you enterted has two digits: " + digit1 + "," + digit2);
+        }
+        else if (number > 99 && number < 1000) {
+            System.out.println("The number you entered has Three digits: " + digit1 + ","+ digit2 + "," + digit3 );
+        }
+        else {
+            System.out.println("INVALID!!!");
+        }
+    }
+    
+}
