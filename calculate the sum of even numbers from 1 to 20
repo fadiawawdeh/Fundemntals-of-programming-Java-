@@ -1,0 +1,14 @@
+public class NewClass1 {
+    public static void main(String[] args) {
+        int number = 0;
+        int sum = 0;
+        while (number < 20) {
+            number++;
+            if (number % 2 == 1) {
+                continue; // Skip odd numbers
+            }
+            sum += number;
+        }
+        System.out.println("The sum of even numbers from 1 to 20 is: " + sum);
+    }
+}
