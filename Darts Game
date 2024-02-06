@@ -1,0 +1,251 @@
+package fadi;
+
+import java.util.Scanner;
+
+
+
+public class Dart {
+
+ 	public static void main(String[]args) {
+
+ 		
+
+ 		Scanner inp = new Scanner(System.in);
+
+ 		
+
+ 		System.out.println("DART GAME!");
+
+ 		System.out.print("Enter the number of darts to be thrown: ");
+
+ 		System.out.println();
+
+ 		
+
+ 		int n = inp.nextInt();
+
+ 		
+
+ 		int countA = 0,
+
+ 		    countB = 0,
+
+ 		    countC = 0,
+
+ 		    countG = 0,
+
+ 		    countD = 0,
+
+ 		    countE = 0,
+
+ 		    countF = 0,
+
+ 		    countUn = 0;
+
+ 		
+
+ 		
+
+ 		float max = 5;
+
+ 		float min = -5;
+
+ 		
+
+ 		for(int i = 1; i <= n; i++) {
+
+ 			System.out.println("Dart " + i + ":");
+
+ 			System.out.println("Coordinates: ");
+
+ 			float Valx = (float) ((Math.random() * (max - min)) + min);
+
+ 			float Valy = (float) ((Math.random() * (max - min)) + min);
+
+ 			float x = Math.round(Valx*100);
+
+ 			float y = Math.round(Valy*100);
+
+ 			x = x/100;
+
+ 			y = y/100;
+
+ 			
+
+ 			System.out.println("(" + x + "," + y + ")");
+
+ 			System.out.print("Region: ");
+
+ 			// 1st Square
+
+ 			if(x > 0 && x < 5 && y > 0 && y < 5) {
+
+ 				if(y + x < 5) {
+
+ 					System.out.println("A");
+
+ 					countA++;
+
+ 				}else if(y + x > 5) {
+
+ 					System.out.println("B");
+
+ 					countB++;
+
+ 				}else {
+
+ 					System.out.println("Undecidable");
+
+ 					countUn++;
+
+ 				}
+
+ 			}
+
+ 			//2nd Square
+
+ 			else if(x > -5 && x < 0 && y > 0 && y < 5) {
+
+ 				if(x > -2 && x < -4 && y > 2 && y < 4) {
+
+ 					if(x + y > -1 && x + y < 1) {
+
+ 						System.out.println("C");
+
+ 						countC++;
+
+ 					}else if(x + y == 1 || x + y == -1) {
+
+ 						System.out.println("Undecidable");
+
+ 						countUn++;
+
+ 					}else {
+
+ 						System.out.println("G");
+
+ 						countG++;
+
+ 					}
+
+ 				}else {
+
+ 					System.out.println("G");
+
+ 					countG++;
+
+ 				}
+
+ 			}
+
+ 			//3rd Square
+
+ 			else if(x > -5 && x < 0 && y > -5 && y < 0) {
+
+ 				if(y > x) {
+
+ 					System.out.println("D");
+
+ 					countD++;
+
+ 				}else if (y < x) {
+
+ 					System.out.println("E");
+
+ 					countE++;
+
+ 				}else {
+
+ 					System.out.println("Undecidable");
+
+ 					countUn++;
+
+ 				}
+
+ 				}
+
+ 			//4th Square
+
+ 			else if(x > 0 && x < 5 && y > -5 && y < 0) {
+
+ 				System.out.println("F");
+
+ 				countF++;
+
+ 			}
+
+ 			
+
+ 			//On Line
+
+ 			else {
+
+ 				System.out.println("Undecidable");
+
+ 				countUn++;
+
+ 			}
+
+ 			System.out.println();
+
+ 		}
+
+ 		float NumA = countA * 10000 / n,
+
+ 	 		   NumB = countB * 10000 / n,
+
+ 	 		   NumC = countC * 10000 / n,
+
+ 	 		   NumG = countG * 10000 / n,
+
+ 	 		   NumD = countD * 10000 / n,
+
+ 	 		   NumE =  countE * 10000 / n,
+
+ 	 		   NumF = countF * 10000 / n,
+
+ 	 		   NumUn = countUn * 10000 / n;
+
+ 		
+
+ 		NumA = NumA/100;
+
+ 		NumB = NumB/100;
+
+ 		NumC = NumC/100;
+
+ 		NumD = NumD/100;
+
+ 		NumE = NumE/100;
+
+ 		NumF = NumF/100;
+
+ 		NumG = NumG/100;
+
+ 		NumUn = NumUn/100;
+
+ 		
+
+ 	 		
+
+ 		System.out.println("Region Statistics:");
+
+ 		System.out.println("A: " + countA + " dart (" + NumA + "%)");
+
+ 		System.out.println("B: " + countB + " dart (" + NumB + "%)");
+
+ 		System.out.println("C: " + countC + " dart (" + NumC + "%)");
+
+ 		System.out.println("D: " + countD + " dart (" + NumD + "%)");
+
+ 		System.out.println("E: " + countE + " dart (" + NumE + "%)");
+
+ 		System.out.println("F: " + countF + " dart (" + NumF + "%)");
+
+ 		System.out.println("G: " + countG + " dart (" + NumG + "%)");
+
+ 		System.out.println("Undecided: " + countUn + " dart (" + NumUn +"%)");
+
+ 		
+
+ 		
