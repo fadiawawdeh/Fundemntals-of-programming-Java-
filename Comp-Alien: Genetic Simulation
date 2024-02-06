@@ -1,0 +1,192 @@
+import java.util.Random;
+import java.util.Scanner;
+public class Main {
+    // Represents a compAlien individual
+    public static class CompAlien {
+        private final String code;
+        private int health;
+        private final char gender;
+
+        public CompAlien(String code) {
+            this.code = code;
+            this.health = calculateHealth();
+            this.gender = findGender();
+        }
+
+        // Calculates the health of a compAlien based on the number of "CSE" sequences in its code
+        public int calculateHealth() {
+            int count = 0;
+            for (int i = 0; i < code.length() - 2; i++) {
+                if (code.charAt(i) == 'C' && code.charAt(i + 1) == 'S' && code.charAt(i + 2) == 'E') {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        // Determines the gender of a compAlien based on the last character of its code
+        public char findGender() {
+            char lastChar = code.charAt(code.length() - 1);
+            if (lastChar == 'S') {
+                return 'M';
+            } else {
+                return 'F';
+            }
+        }
+
+        public int getHealth() {
+            return health;
+        }
+
+        public char getGender() {
+            return gender;
+        }
+    }
+
+    // Generates a population of compAliens with random genetic codes
+    public static CompAlien[] generatePopulation(int size) {
+        Random rand = new Random();
+        CompAlien[] population = new CompAlien[size];
+        for (int i = 0; i < size; i++) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < 128; j++) {
+                int index = rand.nextInt(3);
+                sb.append(new char[]{'C', 'S', 'E'}[index]);
+            }
+            population[i] = new CompAlien(sb.toString());
+        }
+        return population;
+    }
+
+    // Calculates the probability of two compAliens having an offspring
+    public static double reproductionProbability(CompAlien a, CompAlien b, int N) {
+        return (a.getHealth() + b.getHealth()) / (double) N;
+    }
+
+    // Returns the result of two compAliens mating
+    public static String reproductionResult(CompAlien a, CompAlien b, int N) {
+        if (a.getGender() == b.getGender()) {
+            return "No mate";
+        } else {
+            double probability = reproductionProbability(a, b, N);
+            Random rand = new Random();
+            if (rand.nextDouble() <= probability) {
+                return "Offspring chance " + (int) (probability * 100) + "% They have 1 offspring :)";
+            } else {
+                return "Offspring chance " + (int) (probability * 100) + "% They have no offspring :(";
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Random rand2 = new Random();
+        Scanner in = new Scanner(System.in);
+        System.out.print("Enter the size of compAlien population: ");
+        int populationSize = in.nextInt();
+        CompAlien[] population = generatePopulation(populationSize);
+        System.out.println("Simulating compAlien species...");
+        System.out.println("------------------------------------------------");
+        for (int i = 0; i < population.length; i++) {
+            System.out.println("ID:" + (i + 1) + ", " + population[i].getGender() + ", Health: " + population[i].getHealth());
+        }
+        System.out.println("------------------------------------------------");
+        System.out.println("compAlien population is generated!");
+        while (true) {
+            System.out.println("Choose an option:");
+            System.out.println("(1)Mate two compAliens");
+            System.out.println("(2)Randomly mate a set of compAliens");
+            System.out.println("(3)Show statistics");
+            System.out.println("(4)Wrestle them up ");
+            System.out.println("(5)Simulate a natural disaster");
+            int option = in.nextInt();
+            switch (option) {
+                case 1 -> {
+                    // Mate two compAliens
+                    System.out.println("Mating two compAliens");
+                    System.out.println("-----------------------------------------------------");
+                    System.out.print("Enter ID of first compAlien: ");
+                    int id1 = in.nextInt();
+                    System.out.print("Enter ID of second compAlien: ");
+                    int id2 = in.nextInt();
+                    CompAlien a = population[id1 - 1];
+                    CompAlien b = population[id2 - 1];
+                    System.out.println("compAlien " + id1 + "(" + a.getGender() + ") and " + id2 + "(" + b.getGender() + ") Mate: " + reproductionResult(a, b, 128));
+                }
+                case 2 -> {
+                    // Randomly mate a set of compAliens
+                    System.out.println("Randomly mate a set of compAliens");
+                    System.out.print("Enter number of randomly chosen compAlien pairs: ");
+                    int numPairs = in.nextInt();
+                    Random rand = new Random();
+                    for (int i = 0; i < numPairs; i++) {
+                        int id1 = rand.nextInt(populationSize);
+                        int id2 = rand.nextInt(populationSize);
+                        CompAlien a = population[id1];
+                        CompAlien b = population[id2];
+                        System.out.println("compAlien " + (id1 + 1) + "(" + a.getGender() + ") and " + (id2 + 1) + "(" + b.getGender() + ") Mate: " + reproductionResult(a, b, 128));
+                    }
+                }
+                case 3 -> {
+// Show statistics
+                    System.out.println("Enter a minimum health value: ");
+                    int minHealth = in.nextInt();
+                    int numMales = 0;
+                    int numFemales = 0;
+                    int numHighHealth = 0;
+                    for (CompAlien compAlien : population) {
+                        if (compAlien.getGender() == 'M') {
+                            numMales++;
+                        } else {
+                            numFemales++;
+                        }
+                        if (compAlien.getHealth() >= minHealth) {
+                            numHighHealth++;
+                        }
+                    }
+                    System.out.println("Number of males: " + numMales);
+                    System.out.println("Number of females: " + numFemales);
+                    System.out.println("Number of compAliens with health of " + minHealth + " or higher: " + numHighHealth);
+                }
+                case 4 -> {
+                    // wrestling option
+                    System.out.print("Enter the ID of the first compAlien: ");
+                    int id1 = in.nextInt() - 1;
+                    System.out.print("Enter the ID for the second compAlien: ");
+                    int id2 = in.nextInt() - 1;
+                    CompAlien a = population[id1];
+                    CompAlien b = population[id2];
+                    System.out.println("Wrestling " + a.getGender() + " vs " + b.getGender());
+                    System.out.println("------------------------------------------");
+                    if (a.getHealth() > b.getHealth()) {
+                        System.out.println("Winner: " + a.getGender());
+                    } else {
+                        System.out.println("Winner: " + b.getGender());
+                    }
+                    System.out.println("------------------------------------------");
+
+
+                }
+                case 5 -> {
+                    // simulate a natural disaster
+                    System.out.print("Enter the number of compAliens to be affected: ");
+                    int numAffected = in.nextInt();
+                    System.out.print("Enter the percentage of health to be lost: ");
+                    int percentLoss = in.nextInt();
+                    int count = 0;
+                    while (count < numAffected) {
+                        int randomIndex = rand2.nextInt(populationSize);
+                        CompAlien affected = population[randomIndex];
+                        if (affected.getHealth() > 0) {
+                            affected.health = affected.health - (affected.health * percentLoss / 100);
+                            count++;
+                        }
+                    }
+                    System.out.println("A natural disaster has occurred! " + numAffected + " compAliens have lost " + percentLoss + "% of their health.");
+
+                }
+                default -> {
+                    System.out.println("Invalid option");
+                }
+            }
+        }
+    }
