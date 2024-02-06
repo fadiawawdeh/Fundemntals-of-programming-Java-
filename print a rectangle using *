@@ -1,0 +1,47 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package lab.nested.loops;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Fadi Awawdeh
+ */
+public class LabNestedLoops {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Scanner input = new Scanner (System.in);
+        System.out.println("Enter the number of rows");
+        int r = input.nextInt();
+        System.out.println("Enter the number of columns");
+        int c = input.nextInt();
+        int row = 0;
+        for (int i = 1; i <=r; i++) {// for thr row
+            if (i==1 || i==r) {
+          for (int j = 0; j < c; j++) {
+    System.out.print("*");
+}
+ 
+            }
+            else {
+                System.out.print("*");
+                for (int j = 1; j <= c-2; j++) {
+                    System.out.println(" ");
+                }
+                System.out.println("*");
+            }
+            System.out.println(" ");
+            
+        }
+   
+        
+    }
+    
+}
