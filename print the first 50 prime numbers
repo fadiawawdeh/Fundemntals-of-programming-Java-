@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+public class Primenumber2 {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+         
+        int number = 2;
+        int count = 0;
+
+        while (count < 50) {
+            boolean isPrime = true;
+            
+            for (int trynum = 2; trynum <= number/2; trynum++) {
+                if (number % trynum == 0) {
+                    isPrime = false;
+                    break;
+                }
+            } // end of the loop
+            
+            if (isPrime) {
+                count++;
+                System.out.print(number + " ");
+            }
+            
+            // Update the number for the next iteration
+            number++;
+        } // end of the outer while loop
+    } // end of main
+}
