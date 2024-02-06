@@ -1,0 +1,34 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
+ */
+
+package com.mycompany.questions;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Fadi Awawdeh
+ */
+public class Questions {
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+        
+        int number1 = (int)(Math.random()*10);
+        int number2 = (int)(Math.random()*10);
+                
+        //System.out.println("Random number: " + (int)(Math.random()*10));
+        //a+ Math.random()*b; 
+        //10 + (Math.random()*90);
+        
+        System.out.print("Enter " + number1 + "+" + number2 + "=? ");
+        int answer = input.nextInt();
+        
+        boolean isCorrect = (answer == (number1+number2));
+        System.out.println("Your answer is " + isCorrect);
+        System.out.println("Correct answer is " + (number1+number2));
+    }
+}
